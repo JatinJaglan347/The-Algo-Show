@@ -1,5 +1,5 @@
 import React ,{useState , useEffect , useRef} from 'react'
-import Bar from '../bar/bar';
+import Bar from '../Bar/Bar';
 import { RandomNumGen  , delay } from '../../utils';
 import { TfiReload } from "react-icons/tfi";
 
@@ -9,10 +9,7 @@ import SelectionSort from '../AboutSorting/SelectionSort';
 import InsertionSort from '../AboutSorting/InsertionSort';
 import MergeSort from '../AboutSorting/MergeSort';
 import QuickSort from '../AboutSorting/QuickSort';
-import NavBar from '../NavBar/NavBar';
-import Contact from '../Contact/Contact';
-import Review from '../Reviews/Reviews';
-import Footer from '../Footer/Footer';
+
 
 
 function Hero() {
