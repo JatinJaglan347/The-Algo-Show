@@ -4,6 +4,15 @@ import { RandomNumGen  , delay } from '../../utils';
 import { TfiReload } from "react-icons/tfi";
 
 import { ImCross } from "react-icons/im";
+import BubbleSort from '../AboutSorting/BubbleSort';
+import SelectionSort from '../AboutSorting/SelectionSort';
+import InsertionSort from '../AboutSorting/InsertionSort';
+import MergeSort from '../AboutSorting/MergeSort';
+import QuickSort from '../AboutSorting/QuickSort';
+import NavBar from '../NavBar/NavBar';
+import Contact from '../Contact/Contact';
+import Review from '../Reviews/Reviews';
+import Footer from '../Footer/Footer';
 
 
 function Hero() {
@@ -39,7 +48,7 @@ function Hero() {
 
    function handleSortChange(event) {
     setSelectedAlgo(event.target.value);
-    
+
 }
 
 function handleSortButtonClick() {
@@ -354,23 +363,21 @@ async function quickSort(arr, low, high) {
     
   return (
    <>
-    <div className=' bg-black'>
-        <div className=' h-40'></div>
+    <div className=' flex flex-col bg-black gap-5 '>
+        <div className=' flex flex-col w-[90%] max-w-[1440px] justify-center items-center m-auto'>
+            <div className=' flex flex-col lg:flex-row w-full gap-6 lg:p-4'>
+                <div className='lg:w-1/2  w-full rounded-lg overflow-hidden flex flex-col gap-1'>
 
-        <div className=' flex justify-center items-center '>
-            <div className=' flex w-[90%] gap-6'>
-                <div className='w-1/2 rounded-lg overflow-hidden flex flex-col gap-1'>
-
-                    <div className='w-full h-20 bg-zinc-800 p-1 flex justify-between px-2 items-center'>
-                        <div className=' text-gray-300 w-1/2'>
+                    <div className='w-full min-h-20 bg-zinc-800 p-1 flex flex-col lg:flex-row justify-between px-2 lg:items-center'>
+                        <div className=' text-gray-300 w-full md:w-1/2 '>
                             <h1 className=' font-bold'>Array Length :</h1>
                             <div className=' flex  gap-5 w-full justify-between'>
                                 <input className=' w-[80%]'  type="range" max={20} min={3}  onChange={getArrRange}/>
                                 <div className=' border p-1 px-2 rounded-md'>{arrRange}</div>
                             </div>
                         </div>
-                        <div className='flex justify-center items-center text-center'>
-                            <button className=' text-gray-300 flex justify-center items-center text-center gap-2 border rounded-md px-5 py-2' onClick={regenArrRange}>Regenerate <TfiReload /></button>
+                        <div className=' flex flex-col lg:flex-row lg:justify-center justify-start items-start lg:items-center text-center'>
+                            <button className=' text-gray-300 flex justify-start lg:justify-center items-center text-center gap-2 border rounded-md px-5 py-2' onClick={regenArrRange}>Regenerate <TfiReload /></button>
                         </div>
                     </div>
 
@@ -387,18 +394,18 @@ async function quickSort(arr, low, high) {
                         <h1 className=' text-gray-300 font-bold'>UnSorted: </h1><div className='text-red-400 flex flex-wrap font-bold '>[ {randomArr.join(', ')} ]</div>
                     </div>
                 </div>
-                <div className='w-1/2 rounded-lg overflow-hidden flex flex-col gap-1'>
+                <div className='lg:w-1/2 w-full rounded-lg overflow-hidden flex flex-col gap-1'>
 
 
-                    <div className='w-full h-20 bg-zinc-800 p-1 flex justify-between px-2 items-center'>
-                        <div className=' text-gray-300 w-1/2 '>
+                    <div className='w-full min-h-20 bg-zinc-800 p-1 flex flex-col lg:flex-row justify-between px-2 lg:items-center'>
+                        <div className=' text-gray-300 w-full md:w-1/2 '>
                             <h1 className=' font-bold'>Sorting Speed :</h1>
                             <div className=' flex  gap-5 w-full justify-between'>
                                 <input className=' w-[70%]' type="range" defaultValue={0} max={3} min={0} step={0.25}  onChange={delayTimeVal}/>
                                 <div className=' border p-1 px-2 rounded-md flex'>{delayTime ? delayTime / 1000 : 0} sec</div>
                             </div>
                         </div>
-                        <div className='flex justify-center items-center text-center gap-3'>
+                        <div className='flex flex-row lg:justify-center justify-start items-start lg:items-center text-center gap-3'>
                             <select name="sortinAlgo" id="sortinAlgo" onChange={handleSortChange} defaultValue="" className=' bg-transparent text-gray-300 rounded-md border px-5 py-2 flex justify-center items-center'>
                             <option  value="" disabled>Sorting Algo</option>
                                 <option style={{ color: "black" }} value="bubbleSort">Bubble Sort</option>
@@ -407,7 +414,7 @@ async function quickSort(arr, low, high) {
                                 <option style={{ color: "black" }} value="mergeSort">Merge Sort</option>
                                 <option style={{ color: "black" }} value="quickSort">Quick Sort</option>
                             </select>
-                            <button onClick={handleSortButtonClick}  className={`  text-gray-300 justify-center items-center text-center gap-2 border rounded-md px-5 py-2 ${isSorting ?  'hidden' : 'flex'}`} disabled={isSorting}>Sort Array</button> 
+                            <button onClick={handleSortButtonClick}  className={`  text-gray-300 justify-center items-center text-center gap-2 border rounded-md px-3 md:px-5 py-2 ${isSorting ?  'hidden' : 'flex'}`} disabled={isSorting}>Sort Array</button> 
                             <button className={` text-red-600 text-xl ${isSorting ?  'flex' : 'hidden'}`} disabled={!isSorting}  onClick={resetSorting} ><ImCross/></button>
                         </div>
 
@@ -430,9 +437,17 @@ async function quickSort(arr, low, high) {
                 
                 
             </div>
+           
         </div>
-        
+        <div className={`w-auto box-border flex justify-center items-center ${selectedAlgo === "bubbleSort" ? 'flex' : 'hidden'}`}><BubbleSort /></div>
+        <div className={`w-auto box-border flex justify-center items-center ${selectedAlgo === "selectionSort" ? 'flex' : 'hidden'}`}><SelectionSort /></div>
+        <div className={`w-auto box-border flex justify-center items-center ${selectedAlgo === "insertionSort" ? 'flex' : 'hidden'}`}><InsertionSort /></div>
+        <div className={` w-auto box-border flex justify-center items-center ${selectedAlgo === "mergeSort" ? 'flex' : 'hidden'}`}><MergeSort /></div>
+        <div className={`w-auto box-border flex justify-center items-center ${selectedAlgo === "quickSort" ? 'flex' : 'hidden'}`}><QuickSort /></div>
+
     </div>
+
+    
    </>
   )
 }
