@@ -15,7 +15,7 @@ function App() {
   return (
     <>
     <div className=' bg-black min-h-screen flex flex-col justify-between'>
-    <div className='mb-16'><NavBar/></div>
+    <div className='mb-28 md:mb-16'><NavBar/></div>
      <Outlet/>
      <Footer/>
     </div>
