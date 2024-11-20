@@ -72,7 +72,13 @@ Built using modern web technologies:
 
 ## Screenshots
 
-*:)*
+*
+![Screenshot 2024-11-20 142722](https://github.com/user-attachments/assets/f19ca447-2e77-42e5-b361-806d51d2aec5)
+![Screenshot 2024-11-20 142805](https://github.com/user-attachments/assets/ab51ac10-d8e5-4bf6-9f99-0603569adf64)
+![Screenshot 2024-11-20 142834](https://github.com/user-attachments/assets/00e7aaff-628c-49c6-aa41-181337104907)
+![Screenshot 2024-11-20 142914](https://github.com/user-attachments/assets/c312ef44-cb01-48fb-b143-5a73cfac0681)
+*
+
 
 ---
 
