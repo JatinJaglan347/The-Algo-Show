@@ -1,121 +1,161 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from 'react';
+import { FaCode, FaClipboard, FaClipboardCheck, FaInfoCircle, FaArrowRight } from 'react-icons/fa';
+import { ThemeContext } from '../../App';
 
-const BubbleSort = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState("Java");
+function BubbleSort() {
+    const [currentLanguage, setCurrentLanguage] = useState('javascript');
+    const [copied, setCopied] = useState(false);
+    const { isDarkMode } = useContext(ThemeContext);
 
-  const codeSnippets = {
-    Java: `public class BubbleSort {
-    public static void bubbleSort(int[] arr) {
-        int n = arr.length;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                }
+    const handleCopyCode = () => {
+        const code = codeSnippets[currentLanguage];
+        navigator.clipboard.writeText(code);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    const codeSnippets = {
+        javascript: `function bubbleSort(arr) {
+    const n = arr.length;
+    let swapped;
+    
+    do {
+        swapped = false;
+        for (let i = 0; i < n - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                // Swap elements
+                [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+                swapped = true;
             }
         }
-    }
+    } while (swapped);
+    
+    return arr;
 }`,
-    "C++": `void bubbleSort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                std::swap(arr[j], arr[j + 1]);
-            }
-        }
-    }
-}`,
-    Python: `def bubble_sort(arr):
+        python: `def bubble_sort(arr):
     n = len(arr)
-    for i in range(n - 1):
-        for j in range(n - i - 1):
-            if arr[j] > arr[j + 1]:
-                arr[j], arr[j + 1] = arr[j + 1], arr[j]`,
-    JavaScript: `function bubbleSort(arr) {
-    let n = arr.length;
-    for (let i = 0; i < n - 1; i++) {
-        for (let j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-            }
-        }
-    }
-}`,
-    C: `void bubbleSort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
-        }
-    }
-}`,
-  };
-
-  return (
-    <div className="bg-black  flex items-center justify-center lg:p-4  w-[90%] box-border">
-      <div className="bg-zinc-800 p-4 md:p-6 lg:p-8 rounded-lg shadow-lg w-full  max-w-[1440px]  box-border ">
+    
+    for i in range(n):
+        swapped = False
         
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-300 mb-4 text-center">Bubble Sort Algorithm</h1>
-     
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                # Swap elements
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+                
+        # If no swapping occurred in this pass, array is sorted
+        if not swapped:
+            break
+            
+    return arr`,
+        java: `public static void bubbleSort(int[] arr) {
+    int n = arr.length;
+    boolean swapped;
+    
+    do {
+        swapped = false;
+        for (int i = 0; i < n - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                // Swap elements
+                int temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+                swapped = true;
+            }
+        }
+    } while (swapped);
+}`
+    };
 
-       
-        <div className="bg-zinc-900 p-4 md:p-6 rounded-md shadow-md">
-          <p className="text-gray-300 mb-4">
-            Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping
-            the adjacent elements if they are in the wrong order. This algorithm is not
-            suitable for large data sets as its average and worst-case time complexity are
-            quite high.
-          </p>
-          <h2 className="text-lg md:text-xl font-semibold text-gray-300 mb-2">Key Points:</h2>
-          <ul className="list-disc list-inside text-gray-300 space-y-2 pl-4">
-            <li>Multiple passes are used to sort the array.</li>
-            <li>After each pass, the largest unsorted element moves to its correct position.</li>
-            <li>In each pass, only unsorted elements are considered.</li>
-            <li>If adjacent elements are in the wrong order, they are swapped.</li>
-            <li>The process continues until all elements are sorted.</li>
-          </ul>
+    return (
+        <div className={`${isDarkMode ? 'text-gray-100' : 'text-gray-800'} w-full max-w-4xl mx-auto`}>
+            {/* Title and Description */}
+            <div className={`${isDarkMode ? 'bg-zinc-800 border-zinc-700' : 'bg-white border-blue-200'} rounded-lg shadow-lg border p-6 mb-6`}>
+                <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'} flex items-center gap-2`}>
+                    <FaInfoCircle /> Bubble Sort
+                </h2>
+                <p className="mb-4">
+                    Bubble Sort is a simple comparison-based sorting algorithm. It works by repeatedly stepping through the list, comparing adjacent elements, and swapping them if they are in the wrong order. The pass through the list is repeated until the list is sorted.
+                </p>
+                <div className={`${isDarkMode ? 'bg-zinc-900' : 'bg-gray-100'} p-4 rounded-lg`}>
+                    <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? 'text-blue-300' : 'text-blue-600'}`}>Key Characteristics:</h3>
+                    <ul className="list-disc pl-6 space-y-2">
+                        <li><span className="font-semibold">Time Complexity:</span> O(n²) in worst and average cases, O(n) in best case (when array is already sorted)</li>
+                        <li><span className="font-semibold">Space Complexity:</span> O(1) - only requires a constant amount of additional memory space</li>
+                        <li><span className="font-semibold">Stability:</span> Stable - does not change the relative order of elements with equal values</li>
+                        <li><span className="font-semibold">Adaptive:</span> Yes - can terminate early if list becomes sorted</li>
+                    </ul>
+                </div>
+            </div>
+
+            {/* How It Works */}
+            <div className={`${isDarkMode ? 'bg-zinc-800 border-zinc-700' : 'bg-white border-blue-200'} rounded-lg shadow-lg border p-6 mb-6`}>
+                <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'} flex items-center gap-2`}>
+                    <FaArrowRight /> How It Works
+                </h2>
+                <ol className="list-decimal pl-6 space-y-3">
+                    <li>Start at the beginning of the array and compare the first two elements.</li>
+                    <li>If the first element is greater than the second, swap them.</li>
+                    <li>Move to the next pair of elements and repeat step 2.</li>
+                    <li>After reaching the end of the array, start again from the beginning.</li>
+                    <li>Continue this process until a complete pass is made with no swaps (array is sorted).</li>
+                </ol>
+                <div className={`mt-4 ${isDarkMode ? 'bg-zinc-900 text-gray-300' : 'bg-gray-100 text-gray-700'} p-4 rounded-lg`}>
+                    <p className="italic">
+                        The algorithm gets its name because smaller elements "bubble" to the top of the array (beginning) with each iteration.
+                    </p>
+                </div>
+            </div>
+
+            {/* Code Implementation */}
+            <div className={`${isDarkMode ? 'bg-zinc-800 border-zinc-700' : 'bg-white border-blue-200'} rounded-lg shadow-lg border p-6`}>
+                <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'} flex items-center gap-2`}>
+                    <FaCode /> Implementation
+                </h2>
+                
+                {/* Language Tabs */}
+                <div className="flex border-b mb-4">
+                    {Object.keys(codeSnippets).map(language => (
+                        <button
+                            key={language}
+                            onClick={() => setCurrentLanguage(language)}
+                            className={`px-4 py-2 font-medium rounded-t-lg transition-colors ${
+                                currentLanguage === language 
+                                    ? isDarkMode 
+                                        ? 'bg-zinc-700 text-blue-400 border-b-2 border-blue-500' 
+                                        : 'bg-blue-100 text-blue-800 border-b-2 border-blue-500' 
+                                    : isDarkMode 
+                                        ? 'text-gray-400 hover:text-gray-200 hover:bg-zinc-700' 
+                                        : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'
+                            }`}
+                        >
+                            {language.charAt(0).toUpperCase() + language.slice(1)}
+                        </button>
+                    ))}
+                </div>
+                
+                {/* Code Block */}
+                <div className="relative">
+                    <pre className={`${isDarkMode ? 'bg-zinc-900' : 'bg-gray-100'} p-4 rounded-lg overflow-x-auto`}>
+                        <code className={`${isDarkMode ? 'text-gray-100' : 'text-gray-800'} font-mono`}>
+                            {codeSnippets[currentLanguage]}
+                        </code>
+                    </pre>
+                    <button 
+                        onClick={handleCopyCode}
+                        className={`absolute top-2 right-2 p-2 rounded ${
+                            isDarkMode 
+                                ? 'bg-zinc-700 hover:bg-zinc-600 text-blue-400' 
+                                : 'bg-gray-200 hover:bg-gray-300 text-blue-600'
+                        } transition-colors`}
+                    >
+                        {copied ? <FaClipboardCheck /> : <FaClipboard />}
+                    </button>
+                </div>
+            </div>
         </div>
-
-        <h2 className="text-lg md:text-xl font-semibold text-gray-300 mt-6 mb-2">How Does Bubble Sort Work?</h2>
-        <p className="text-gray-300">
-          Consider an array of elements. Starting from the beginning of the array:
-        </p>
-        <ul className="list-decimal list-inside text-gray-300 space-y-2 pl-4 mt-2">
-          <li>Compare the first two elements. If the first is greater than the second, swap them.</li>
-          <li>Move to the next pair and repeat the comparison and swap process.</li>
-          <li>Continue this process until the last pair of elements in the current pass.</li>
-          <li>Repeat the process for all elements except the ones already sorted in previous passes.</li>
-        </ul>
-        <p className="text-gray-300 mt-4">After completing all passes, the array will be sorted.</p>
-
-        <div className="mt-6">
-          <h2 className="text-lg md:text-xl font-semibold text-gray-300 mb-4">View Code in:</h2>
-          <select
-            className="bg-zinc-900 text-gray-300 p-2 rounded-md w-full mb-4"
-            value={selectedLanguage}
-            onChange={(e) => setSelectedLanguage(e.target.value)}
-          >
-            {Object.keys(codeSnippets).map((lang) => (
-              <option key={lang} value={lang}>
-                {lang}
-              </option>
-            ))}
-          </select>
-
-          <div className="bg-zinc-900 p-4 md:p-6 rounded-md shadow-md">
-            <pre className="bg-black p-4 rounded-md overflow-x-auto text-sm md:text-base text-gray-300">
-              {codeSnippets[selectedLanguage]}
-            </pre>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+    );
+}
 
 export default BubbleSort;
